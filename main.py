@@ -256,8 +256,9 @@ async def download_mp3_from_flvto(
         filesize = response_data.get("filesize")
         duration = response_data.get("duration")
 
-        # Clean filename for caching
-        filename = f"{re.sub(r'[^\w\d\-_.]', '_', title).replace('__', '_')[:200]}.mp3"
+        safe_title = re.sub(r'[^\w\d\-_.]', '_', title)
+        safe_titl = safe_title.replace('__', '_')[:200]
+        filename = f"{safe_titl}.mp3"
         file_path = CACHE_PATH / filename
 
         # Check cache
